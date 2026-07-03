@@ -53,13 +53,13 @@ It is built for applications that need stronger source discovery, traceability, 
 ## Install
 
 ```bash
-uv sync
+pip install zoom-search
 ```
 
-Without `uv`:
+For development:
 
 ```bash
-pip install -e '.[dev]'
+uv sync
 ```
 
 ## Quickstart
