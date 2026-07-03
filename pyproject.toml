@@ -3,7 +3,7 @@ requires = ["hatchling>=1.25.0"]
 build-backend = "hatchling.build"
 
 [project]
-name = "zoom_search"
+name = "zoom-search"
 version = "0.1.0"
 description = "Two-phase AI-assisted search library with zoom-out and zoom-in workflows"
 readme = "README.md"
