@@ -52,8 +52,16 @@ It is built for applications that need stronger source discovery, traceability, 
 
 ## Install
 
+With pip:
+
 ```bash
 pip install zoom-search
+```
+
+With uv:
+
+```bash
+uv add zoom-search
 ```
 
 For development:
