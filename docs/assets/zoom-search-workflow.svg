@@ -1,0 +1,45 @@
+<svg width="980" height="260" viewBox="0 0 980 260" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Zoom Search workflow</title>
+  <desc id="desc">Question to query rewriting, broad search, domain zoom-in, evidence, and answer.</desc>
+  <rect width="980" height="260" rx="24" fill="#0F172A"/>
+  <path d="M0 188C98 137 165 162 251 119C346 72 425 49 524 92C630 138 698 183 809 144C879 119 933 84 980 96V260H0V188Z" fill="#123E59" opacity="0.72"/>
+  <path d="M0 217C98 175 169 198 254 164C367 118 443 125 548 158C654 192 724 220 820 184C891 158 936 138 980 148V260H0V217Z" fill="#136F63" opacity="0.62"/>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <text x="490" y="48" text-anchor="middle" fill="#F8FAFC" font-size="26" font-weight="700">Zoom Search</text>
+    <text x="490" y="78" text-anchor="middle" fill="#CBD5E1" font-size="15">Rewrite, search broadly, zoom into source domains, and synthesize evidence-backed answers.</text>
+    <g transform="translate(62 118)">
+      <rect width="132" height="64" rx="14" fill="#F8FAFC"/>
+      <text x="66" y="39" text-anchor="middle" fill="#0F172A" font-size="15" font-weight="700">Question</text>
+    </g>
+    <g transform="translate(216 118)">
+      <rect width="132" height="64" rx="14" fill="#DBEAFE"/>
+      <text x="66" y="32" text-anchor="middle" fill="#0F172A" font-size="14" font-weight="700">Query</text>
+      <text x="66" y="50" text-anchor="middle" fill="#0F172A" font-size="14" font-weight="700">Rewriting</text>
+    </g>
+    <g transform="translate(370 118)">
+      <rect width="132" height="64" rx="14" fill="#D1FAE5"/>
+      <text x="66" y="32" text-anchor="middle" fill="#0F172A" font-size="14" font-weight="700">Broad</text>
+      <text x="66" y="50" text-anchor="middle" fill="#0F172A" font-size="14" font-weight="700">Search</text>
+    </g>
+    <g transform="translate(524 118)">
+      <rect width="132" height="64" rx="14" fill="#FEF3C7"/>
+      <text x="66" y="32" text-anchor="middle" fill="#0F172A" font-size="14" font-weight="700">Domain</text>
+      <text x="66" y="50" text-anchor="middle" fill="#0F172A" font-size="14" font-weight="700">Zoom-In</text>
+    </g>
+    <g transform="translate(678 118)">
+      <rect width="132" height="64" rx="14" fill="#E9D5FF"/>
+      <text x="66" y="39" text-anchor="middle" fill="#0F172A" font-size="15" font-weight="700">Evidence</text>
+    </g>
+    <g transform="translate(832 118)">
+      <rect width="86" height="64" rx="14" fill="#FFE4E6"/>
+      <text x="43" y="39" text-anchor="middle" fill="#0F172A" font-size="15" font-weight="700">Answer</text>
+    </g>
+    <g stroke="#94A3B8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M199 150H211"/><path d="M205 144L211 150L205 156"/>
+      <path d="M353 150H365"/><path d="M359 144L365 150L359 156"/>
+      <path d="M507 150H519"/><path d="M513 144L519 150L513 156"/>
+      <path d="M661 150H673"/><path d="M667 144L673 150L667 156"/>
+      <path d="M815 150H827"/><path d="M821 144L827 150L821 156"/>
+    </g>
+  </g>
+</svg>

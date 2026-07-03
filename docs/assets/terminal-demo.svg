@@ -1,0 +1,22 @@
+<svg width="980" height="410" viewBox="0 0 980 410" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Zoom Search terminal demo</title>
+  <desc id="desc">Terminal-style output showing a question, answer, sources, and traceability.</desc>
+  <rect width="980" height="410" rx="20" fill="#0B1020"/>
+  <rect x="24" y="24" width="932" height="362" rx="14" fill="#111827" stroke="#263244"/>
+  <circle cx="52" cy="50" r="6" fill="#F87171"/>
+  <circle cx="74" cy="50" r="6" fill="#FBBF24"/>
+  <circle cx="96" cy="50" r="6" fill="#34D399"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace" font-size="16">
+    <text x="48" y="96" fill="#A7F3D0">$ python examples/demo.py</text>
+    <text x="48" y="134" fill="#93C5FD">Question</text>
+    <text x="148" y="134" fill="#E5E7EB">What hotels in Shenzhen have rooms with exercise bikes?</text>
+    <text x="48" y="178" fill="#93C5FD">Answer</text>
+    <text x="148" y="178" fill="#E5E7EB">Zoom Search found evidence-backed candidates and grouped them by source.</text>
+    <text x="48" y="222" fill="#93C5FD">Sources</text>
+    <text x="148" y="222" fill="#E5E7EB">1. hotel.example.com/shenzhen-wellness-suite</text>
+    <text x="148" y="252" fill="#E5E7EB">2. travel.example.com/fitness-room-guide</text>
+    <text x="148" y="282" fill="#E5E7EB">3. booking.example.com/exercise-bike-room</text>
+    <text x="48" y="326" fill="#93C5FD">Traceability</text>
+    <text x="178" y="326" fill="#E5E7EB">rewrite_group=fitness_hotel, phase=zoom_in, duplicates=2</text>
+  </g>
+</svg>
