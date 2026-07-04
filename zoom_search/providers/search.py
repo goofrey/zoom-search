@@ -6,8 +6,8 @@ from dataclasses import dataclass
 import hashlib
 import hmac
 import json
-from datetime import UTC
 from datetime import datetime
+from datetime import timezone
 from time import time
 from typing import Any
 from typing import Protocol
@@ -633,7 +633,7 @@ class VolcengineSearchAdapter(BaseSearchAdapter):
     def _build_aksk_headers(self, payload: dict[str, Any]) -> dict[str, str]:
         access_key = str(self._provider_extra.get("access_key", ""))
         secret_key = str(self._provider_extra.get("secret_key", ""))
-        timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         signing_payload = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
         digest = hmac.new(secret_key.encode("utf-8"), signing_payload.encode("utf-8"), hashlib.sha256).hexdigest()
         return {
@@ -758,7 +758,7 @@ class Search360Adapter(BaseSearchAdapter):
         self._api_key = api_key
 
     def build_base_request(self, request: UnifiedSearchRequest) -> dict[str, Any]:
-        sid = request.trace_context.get("request_id") or datetime.now(UTC).strftime("%Y%m%d%H%M%S")
+        sid = request.trace_context.get("request_id") or datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
         return {"ref_prom": "360so-s1", "sid": sid}
 
     def get_headers(self, request: UnifiedSearchRequest) -> dict[str, str]:
