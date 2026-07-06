@@ -75,6 +75,14 @@ For development:
 uv sync
 ```
 
+## Example Queries
+
+- What hotels in Shenzhen have rooms with exercise bikes?
+- Which vector databases support hybrid search and metadata filtering for Python apps?
+- What are the latest SQLite performance improvements and what versions introduced them?
+- Which AI coding tools support self-hosted deployment for enterprise teams?
+- What are the differences between Tavily, Brave Search API, and Serper for AI search apps?
+
 ## Quickstart
 
 ```python
