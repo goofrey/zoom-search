@@ -83,6 +83,16 @@ uv sync
 - Which AI coding tools support self-hosted deployment for enterprise teams?
 - What are the differences between Tavily, Brave Search API, and Serper for AI search apps?
 
+## Examples
+
+Runnable examples are available in the `examples/` directory:
+
+```bash
+python examples/demo_mode.py
+python examples/streaming.py
+python examples/conversation_history.py
+```
+
 ## Quickstart
 
 ```python
