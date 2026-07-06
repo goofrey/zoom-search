@@ -17,11 +17,11 @@
     <text x="88" y="346" fill="#CBD5E1" font-size="21" font-weight="560">traceable evidence, and LLM answer synthesis.</text>
 
     <g transform="translate(88 385)">
-      <rect width="382" height="64" rx="16" fill="#F8FAFC"/>
+      <rect width="460" height="64" rx="16" fill="#F8FAFC"/>
       <circle cx="32" cy="32" r="7" fill="#EF4444"/>
       <circle cx="56" cy="32" r="7" fill="#F59E0B"/>
       <circle cx="80" cy="32" r="7" fill="#22C55E"/>
-      <text x="191" y="32" text-anchor="middle" dominant-baseline="middle" fill="#0F172A" font-size="23" font-weight="850">pip install zoom-search</text>
+      <text x="112" y="40" fill="#0F172A" font-size="22" font-weight="850" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">pip install zoom-search</text>
     </g>
 
     <g transform="translate(88 489)">
@@ -32,7 +32,7 @@
     <g transform="translate(775 96)">
       <rect width="340" height="386" rx="28" fill="#F8FAFC"/>
       <text x="34" y="52" fill="#0F172A" font-size="24" font-weight="900">Evidence Workflow</text>
-      <text x="170" y="82" text-anchor="middle" dominant-baseline="middle" fill="#64748B" font-size="16" font-weight="620">From broad search to focused sources</text>
+      <text x="34" y="82" fill="#64748B" font-size="16" font-weight="620">Broad search to focused sources</text>
 
       <g transform="translate(34 116)">
         <rect width="272" height="58" rx="14" fill="#E0F2FE"/>
