@@ -144,6 +144,32 @@ asyncio.run(main())
 
 Answer modes emit `search_started`, `search_completed`, `answer_started`, `answer_delta`, `answer_completed`, and `completed`.
 
+## Common Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `question` | `str` | User question to search and answer. |
+| `output_mode` | `str` | `answer`, `answer_with_sources`, `results_simple`, or `results_detailed`. |
+| `demo_mode` | `bool` | Use deterministic local demo providers without API keys. |
+| `seed` | `int` | Reproducibility hint for demo mode and supported LLM providers. |
+| `llm_engine` | `str` | Built-in or custom LLM provider. |
+| `llm_model` | `str` | Model name passed to the selected LLM provider. |
+| `llm_api_key` | `str` | API key for the LLM provider. |
+| `search_engine` | `str` | Built-in or custom search provider. |
+| `search_api_key` | `str` | API key for the search provider. |
+| `zoomout_num_results` | `int` | Broad search result count per query. |
+| `zoomin_num_results` | `int` | Domain-focused search result count. |
+| `top_k_domains_per_query` | `int` | Number of source domains selected for zoom-in search. |
+
+## Output Modes
+
+| Mode | Use case |
+|---|---|
+| `answer` | Return synthesized answer only. |
+| `answer_with_sources` | Return answer, sources, search context, metrics, and warnings. |
+| `results_simple` | Return normalized search results without answer synthesis. |
+| `results_detailed` | Return results with source domains, traceability, and duplicate provenance. |
+
 ## Features
 
 - `search(...)`: run the full workflow and return a `SearchResponse`.
@@ -165,8 +191,8 @@ Built-in `search_engine` options:
 
 ## Documentation
 
-- Advanced configuration: [docs/advanced-configuration.md](./docs/advanced-configuration.md)
-- Development checks: [docs/development.md](./docs/development.md)
+- Advanced configuration: https://github.com/goofrey/zoom-search/blob/main/docs/advanced-configuration.md
+- Development checks: https://github.com/goofrey/zoom-search/blob/main/docs/development.md
 
 ## Development
 
