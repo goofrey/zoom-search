@@ -15,6 +15,7 @@
   <a href="#quickstart">Quickstart</a> ·
   <a href="#real-provider-example">Providers</a> ·
   <a href="#common-parameters">Parameters</a> ·
+  <a href="./docs/benchmarks.md">Benchmarks</a> ·
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a> ·
   <a href="./docs/development.md">Development</a>
 </p>
@@ -54,6 +55,12 @@ It is built for applications that need stronger source discovery, traceability, 
 <p align="center">
   <img src="./docs/assets/direct-vs-zoom-search.svg" alt="Direct Search vs Zoom Search comparison" />
 </p>
+
+<p align="center">
+  <img src="./docs/assets/quality-vs-cost.svg" alt="Zoom Search quality versus cost benchmark summary" />
+</p>
+
+Benchmark notes: https://github.com/goofrey/zoom-search/blob/main/docs/benchmarks.md
 
 ## Install
 
