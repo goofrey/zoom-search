@@ -14,6 +14,7 @@
 <p align="center">
   <a href="#quickstart">Quickstart</a> ·
   <a href="#real-provider-example">Providers</a> ·
+  <a href="#common-parameters">Parameters</a> ·
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a> ·
   <a href="./docs/development.md">Development</a>
 </p>
@@ -93,6 +94,32 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
+## Conversation History
+
+Use `previous_conversation` when the latest question depends on recent context. Zoom Search keeps the latest two non-empty entries and uses them during query rewriting and answer synthesis.
+
+```python
+import asyncio
+
+from zoom_search import search
+
+
+async def main() -> None:
+    response = await search(
+        question="What about hotels with in-room fitness equipment?",
+        previous_conversation=[
+            "I am planning a business trip to Shenzhen.",
+            "I prefer hotels with wellness facilities.",
+        ],
+        demo_mode=True,
+        output_mode="answer_with_sources",
+    )
+    print(response.answer)
+
+
+asyncio.run(main())
+```
+
 ## Real Provider Example
 
 ```python
@@ -144,22 +171,63 @@ asyncio.run(main())
 
 Answer modes emit `search_started`, `search_completed`, `answer_started`, `answer_delta`, `answer_completed`, and `completed`.
 
+| Event | When it appears |
+|---|---|
+| `search_started` | The workflow has accepted and normalized the request. |
+| `search_completed` | Search, zoom-in, deduplication, and evidence formatting are complete. |
+| `answer_started` | LLM answer synthesis is about to start. |
+| `answer_delta` | A streamed answer text chunk is available. |
+| `answer_completed` | Answer synthesis has finished. |
+| `completed` | The final `SearchResponse` is available on the event. |
+
 ## Common Parameters
 
-| Parameter | Type | Description |
-|---|---|---|
-| `question` | `str` | User question to search and answer. |
-| `output_mode` | `str` | `answer`, `answer_with_sources`, `results_simple`, or `results_detailed`. |
-| `demo_mode` | `bool` | Use deterministic local demo providers without API keys. |
-| `seed` | `int` | Reproducibility hint for demo mode and supported LLM providers. |
-| `llm_engine` | `str` | Built-in or custom LLM provider. |
-| `llm_model` | `str` | Model name passed to the selected LLM provider. |
-| `llm_api_key` | `str` | API key for the LLM provider. |
-| `search_engine` | `str` | Built-in or custom search provider. |
-| `search_api_key` | `str` | API key for the search provider. |
-| `zoomout_num_results` | `int` | Broad search result count per query. |
-| `zoomin_num_results` | `int` | Domain-focused search result count. |
-| `top_k_domains_per_query` | `int` | Number of source domains selected for zoom-in search. |
+Top-level parameters:
+
+| Parameter | Description |
+|---|---|
+| `question` | User question to search and answer. |
+| `previous_conversation` | Recent context strings; only the latest two non-empty entries are kept. |
+| `output_mode` | `answer`, `answer_with_sources`, `results_simple`, or `results_detailed`. |
+| `demo_mode` | Use deterministic local demo providers without API keys. |
+| `seed` | Reproducibility hint for demo mode and supported LLM providers. |
+| `http_proxy` | Global provider proxy URL. |
+
+LLM parameters:
+
+| Parameter | Description |
+|---|---|
+| `llm_engine` | Built-in engine name, `openai-compatible`, or `custom`. |
+| `llm_model` | Model name passed to the selected LLM provider. |
+| `llm_api_key` | API key for the LLM provider. |
+| `llm_base_url` | Custom or OpenAI-compatible LLM endpoint base URL. |
+| `llm_headers` | Additional request headers for the LLM provider. |
+| `llm_http_proxy` | LLM-specific proxy URL. |
+| `llm_extra` | Provider-specific mapping or adapter options. |
+| `llm_request_options` | Optional feature flags for `temperature`, `response_format`, `seed`, `stream`, and `reasoning`. |
+
+Search parameters:
+
+| Parameter | Description |
+|---|---|
+| `search_engine` | Built-in search engine name or `custom`. |
+| `search_api_key` | API key for the search provider. |
+| `search_base_url` | Custom search endpoint URL. |
+| `search_headers` | Additional request headers for the search provider. |
+| `search_http_proxy` | Search-specific proxy URL. |
+| `search_extra` | Provider-specific search options. |
+| `search_result_collection_path` | Dot path to the result list for custom search responses. |
+| `search_title_fields` | Candidate title fields for custom search result mapping. |
+| `search_snippet_fields` | Candidate snippet fields for custom search result mapping. |
+| `search_url_fields` | Candidate URL fields for custom search result mapping. |
+
+Search limits:
+
+| Parameter | Default | Description |
+|---|---:|---|
+| `zoomout_num_results` | `5` | Broad search result count per query. |
+| `zoomin_num_results` | `5` | Domain-focused search result count. |
+| `top_k_domains_per_query` | `1` | Number of source domains selected for zoom-in search. |
 
 ## Output Modes
 
