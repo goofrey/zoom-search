@@ -1,47 +1,62 @@
 <svg width="1200" height="627" viewBox="0 0 1200 627" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Zoom Search LinkedIn cover</title>
   <desc id="desc">A LinkedIn cover image for Zoom Search, a precise AI web search library for Python.</desc>
-  <rect width="1200" height="627" rx="0" fill="#08111F"/>
-  <path d="M0 423C148 348 259 382 407 307C555 232 675 216 832 279C982 339 1062 405 1200 348V627H0V423Z" fill="#0E5E66" opacity="0.72"/>
-  <path d="M0 496C139 430 263 457 420 404C589 347 735 370 876 421C1002 467 1096 513 1200 466V627H0V496Z" fill="#1B8A72" opacity="0.62"/>
+  <rect width="1200" height="627" fill="#08111F"/>
+  <path d="M0 410C143 344 251 373 402 305C559 234 681 219 834 279C985 338 1070 399 1200 350V627H0V410Z" fill="#0E5E66" opacity="0.72"/>
+  <path d="M0 494C139 431 267 454 422 404C593 349 731 370 879 421C1010 466 1098 511 1200 466V627H0V494Z" fill="#1B8A72" opacity="0.62"/>
+
   <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
-    <g transform="translate(86 76)">
-      <rect width="212" height="46" rx="23" fill="#E6FFFA" opacity="0.98"/>
-      <text x="106" y="30" text-anchor="middle" fill="#0F766E" font-size="18" font-weight="800">PYTHON LIBRARY</text>
+    <g transform="translate(84 82)">
+      <rect width="206" height="44" rx="22" fill="#E6FFFA" opacity="0.98"/>
+      <text x="103" y="29" text-anchor="middle" fill="#0F766E" font-size="17" font-weight="800">PYTHON LIBRARY</text>
     </g>
 
-    <text x="86" y="214" fill="#F8FAFC" font-size="82" font-weight="900">Zoom Search</text>
-    <text x="90" y="276" fill="#C7D2FE" font-size="31" font-weight="700">Precise AI web search with query rewriting and source zoom-in</text>
-    <text x="90" y="327" fill="#CBD5E1" font-size="24" font-weight="500">Traceable evidence, domain-focused search, deduplication, and LLM answer synthesis.</text>
+    <text x="84" y="213" fill="#F8FAFC" font-size="78" font-weight="900">Zoom Search</text>
+    <text x="88" y="274" fill="#C7D2FE" font-size="29" font-weight="760">Precise AI web search for Python</text>
+    <text x="88" y="317" fill="#CBD5E1" font-size="22" font-weight="560">Query rewriting, source zoom-in, traceable evidence, and LLM answer synthesis.</text>
 
-    <g transform="translate(90 382)">
-      <rect width="336" height="58" rx="14" fill="#F8FAFC"/>
-      <text x="168" y="37" text-anchor="middle" fill="#0F172A" font-size="21" font-weight="850">pip install zoom-search</text>
+    <g transform="translate(88 366)">
+      <rect width="382" height="64" rx="16" fill="#F8FAFC"/>
+      <circle cx="32" cy="32" r="7" fill="#EF4444"/>
+      <circle cx="56" cy="32" r="7" fill="#F59E0B"/>
+      <circle cx="80" cy="32" r="7" fill="#22C55E"/>
+      <text x="112" y="40" fill="#0F172A" font-size="23" font-weight="850">pip install zoom-search</text>
     </g>
 
-    <g transform="translate(90 468)">
+    <g transform="translate(88 472)">
       <text x="0" y="0" fill="#A7F3D0" font-size="23" font-weight="800">github.com/goofrey/zoom-search</text>
-      <text x="0" y="38" fill="#E2E8F0" font-size="20" font-weight="600">Better source discovery. Stronger grounded answers.</text>
+      <text x="0" y="38" fill="#E2E8F0" font-size="20" font-weight="620">Better source discovery. Stronger grounded answers.</text>
     </g>
 
-    <g transform="translate(804 104)">
-      <rect width="310" height="318" rx="26" fill="#F8FAFC"/>
-      <rect x="30" y="32" width="250" height="54" rx="12" fill="#E0F2FE"/>
-      <text x="155" y="66" text-anchor="middle" fill="#075985" font-size="20" font-weight="850">Direct Search</text>
-      <path d="M154 104V134" stroke="#94A3B8" stroke-width="5" stroke-linecap="round"/>
-      <path d="M154 134L141 121M154 134L167 121" stroke="#94A3B8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="30" y="154" width="250" height="54" rx="12" fill="#DCFCE7"/>
-      <text x="155" y="188" text-anchor="middle" fill="#166534" font-size="20" font-weight="850">Query Rewrite</text>
-      <path d="M154 226V256" stroke="#94A3B8" stroke-width="5" stroke-linecap="round"/>
-      <path d="M154 256L141 243M154 256L167 243" stroke="#94A3B8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="30" y="276" width="250" height="54" rx="12" fill="#F0FDFA"/>
-      <text x="155" y="310" text-anchor="middle" fill="#0F766E" font-size="20" font-weight="850">Source Zoom-In</text>
+    <g transform="translate(775 96)">
+      <rect width="340" height="386" rx="28" fill="#F8FAFC"/>
+      <text x="34" y="52" fill="#0F172A" font-size="24" font-weight="900">Evidence Workflow</text>
+      <text x="34" y="82" fill="#64748B" font-size="16" font-weight="620">From broad search to focused sources</text>
+
+      <g transform="translate(34 116)">
+        <rect width="272" height="58" rx="14" fill="#E0F2FE"/>
+        <text x="24" y="37" fill="#075985" font-size="19" font-weight="850">1. Rewrite question</text>
+      </g>
+      <path d="M945 286V314" stroke="#94A3B8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M945 314L932 301M945 314L958 301" stroke="#94A3B8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <g transform="translate(34 214)">
+        <rect width="272" height="58" rx="14" fill="#DCFCE7"/>
+        <text x="24" y="37" fill="#166534" font-size="19" font-weight="850">2. Search broadly</text>
+      </g>
+      <path d="M945 384V412" stroke="#94A3B8" stroke-width="5" stroke-linecap="round"/>
+      <path d="M945 412L932 399M945 412L958 399" stroke="#94A3B8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <g transform="translate(34 312)">
+        <rect width="272" height="58" rx="14" fill="#F0FDFA"/>
+        <text x="24" y="37" fill="#0F766E" font-size="19" font-weight="850">3. Zoom into sources</text>
+      </g>
     </g>
 
-    <g transform="translate(804 456)">
-      <rect width="310" height="70" rx="18" fill="#F8FAFC" opacity="0.96"/>
-      <text x="155" y="29" text-anchor="middle" fill="#0F172A" font-size="17" font-weight="850">Evidence-first AI search</text>
-      <text x="155" y="52" text-anchor="middle" fill="#475569" font-size="15" font-weight="650">Benchmarked with real providers</text>
+    <g transform="translate(777 508)">
+      <rect width="338" height="66" rx="18" fill="#F8FAFC" opacity="0.96"/>
+      <text x="169" y="28" text-anchor="middle" fill="#0F172A" font-size="17" font-weight="850">Evidence-first AI search</text>
+      <text x="169" y="50" text-anchor="middle" fill="#475569" font-size="15" font-weight="650">Benchmarked with real providers</text>
     </g>
   </g>
 </svg>
