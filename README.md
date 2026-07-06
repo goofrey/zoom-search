@@ -51,6 +51,10 @@ It is built for applications that need stronger source discovery, traceability, 
   <img src="./docs/assets/terminal-demo.svg" alt="Zoom Search terminal demo" />
 </p>
 
+<p align="center">
+  <img src="./docs/assets/direct-vs-zoom-search.svg" alt="Direct Search vs Zoom Search comparison" />
+</p>
+
 ## Install
 
 With pip:
