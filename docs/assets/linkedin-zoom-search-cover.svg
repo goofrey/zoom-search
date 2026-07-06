@@ -13,9 +13,10 @@
 
     <text x="84" y="213" fill="#F8FAFC" font-size="78" font-weight="900">Zoom Search</text>
     <text x="88" y="274" fill="#C7D2FE" font-size="29" font-weight="760">Precise AI web search for Python</text>
-    <text x="88" y="317" fill="#CBD5E1" font-size="22" font-weight="560">Query rewriting, source zoom-in, traceable evidence, and LLM answer synthesis.</text>
+    <text x="88" y="315" fill="#CBD5E1" font-size="21" font-weight="560">Query rewriting, source zoom-in,</text>
+    <text x="88" y="346" fill="#CBD5E1" font-size="21" font-weight="560">traceable evidence, and LLM answer synthesis.</text>
 
-    <g transform="translate(88 366)">
+    <g transform="translate(88 385)">
       <rect width="382" height="64" rx="16" fill="#F8FAFC"/>
       <circle cx="32" cy="32" r="7" fill="#EF4444"/>
       <circle cx="56" cy="32" r="7" fill="#F59E0B"/>
@@ -23,7 +24,7 @@
       <text x="112" y="40" fill="#0F172A" font-size="23" font-weight="850">pip install zoom-search</text>
     </g>
 
-    <g transform="translate(88 472)">
+    <g transform="translate(88 489)">
       <text x="0" y="0" fill="#A7F3D0" font-size="23" font-weight="800">github.com/goofrey/zoom-search</text>
       <text x="0" y="38" fill="#E2E8F0" font-size="20" font-weight="620">Better source discovery. Stronger grounded answers.</text>
     </g>
