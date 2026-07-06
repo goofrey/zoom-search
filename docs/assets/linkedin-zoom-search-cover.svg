@@ -15,8 +15,8 @@
     <text x="90" y="327" fill="#CBD5E1" font-size="24" font-weight="500">Traceable evidence, domain-focused search, deduplication, and LLM answer synthesis.</text>
 
     <g transform="translate(90 382)">
-      <rect width="226" height="56" rx="12" fill="#F8FAFC"/>
-      <text x="113" y="36" text-anchor="middle" fill="#0F172A" font-size="22" font-weight="850">pip install zoom-search</text>
+      <rect width="336" height="58" rx="14" fill="#F8FAFC"/>
+      <text x="168" y="37" text-anchor="middle" fill="#0F172A" font-size="21" font-weight="850">pip install zoom-search</text>
     </g>
 
     <g transform="translate(90 468)">
