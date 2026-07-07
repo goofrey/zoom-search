@@ -1,7 +1,6 @@
 # Project artifacts
 artifacts/
 specs/
-.monkeycode/
 MEMORY.md
 
 # Python cache and test output

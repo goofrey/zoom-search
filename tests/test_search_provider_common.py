@@ -145,7 +145,7 @@ def test_group_b_provider_capabilities_are_declared() -> None:
 
 
 def test_site_restriction_domain_uses_host_value() -> None:
-    assert clean_site_restriction_domain("https://monkeycode-ai.com/console") == "monkeycode-ai.com"
+    assert clean_site_restriction_domain("https://example.com/console") == "example.com"
     assert build_site_query(domain="https://www.trip.com/path", split_question="hotel room") == "site:www.trip.com hotel room"
 
 
