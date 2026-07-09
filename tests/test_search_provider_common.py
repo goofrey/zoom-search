@@ -49,6 +49,8 @@ def test_capability_registry_reads_engine_capabilities() -> None:
     registry = SearchCapabilityRegistry(BUILTIN_SEARCH_CAPABILITIES)
 
     assert registry.supports_provider_side_site_restriction("tavily") is True
+    assert registry.supports_provider_side_site_restriction("serpapi") is False
+    assert registry.recommended_zoom_in_strategy("serpapi") == "query_side"
     assert registry.recommended_zoom_in_strategy("searxng") == "best_effort"
     assert registry.get("brave").num_results_param == "count"
     assert registry.get("you").num_results_mode == "per_collection_limit"
@@ -240,7 +242,7 @@ def test_special_group_a_provider_patches() -> None:
         UnifiedSearchRequest(task="zoomin_search", query="trip room", num_results=4, site_restriction_mode="provider_side", site_restriction_domain="trip.com")
     )
     serpapi_request = serpapi.build_request(
-        UnifiedSearchRequest(task="zoomin_search", query="trip room", num_results=2, site_restriction_mode="provider_side", site_restriction_domain="trip.com")
+        UnifiedSearchRequest(task="zoomin_search", query="trip room", num_results=2, site_restriction_mode="query_side", site_restriction_domain="trip.com")
     )
     firecrawl_request = firecrawl.build_request(
         UnifiedSearchRequest(task="zoomin_search", query="trip room", num_results=2, site_restriction_mode="provider_side", site_restriction_domain="https://trip.com/a")
@@ -266,8 +268,9 @@ def test_special_group_a_provider_patches() -> None:
     assert "X-Signature" in volcengine_request.headers
     assert serpapi_request.method == "GET"
     assert serpapi_request.params["api_key"] == "secret"
-    assert serpapi_request.params["as_sitesearch"] == "trip.com"
-    assert serpapi_request.params["as_dt"] == "i"
+    assert serpapi_request.params["q"] == "site:trip.com trip room"
+    assert "as_sitesearch" not in serpapi_request.params
+    assert "as_dt" not in serpapi_request.params
     assert serpapi_request.params["engine"] == "google"
     assert firecrawl_request.json_body["sources"] == ["web"]
     assert firecrawl_request.json_body["includeDomains"] == ["trip.com"]
