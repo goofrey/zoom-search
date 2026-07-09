@@ -94,6 +94,35 @@ async def test_demo_mode_metrics_include_usage_counts_and_timing() -> None:
 
 
 @pytest.mark.asyncio
+async def test_raw_diagnostics_are_opt_in() -> None:
+    default_response = await search(
+        SearchRequest(
+            question="What hotels in Shenzhen have rooms with exercise bikes?",
+            demo_mode=True,
+            output_mode="answer_with_sources",
+            seed=7,
+        )
+    )
+
+    assert not hasattr(default_response, "raw_diagnostics")
+
+    diagnostic_response = await search(
+        SearchRequest(
+            question="What hotels in Shenzhen have rooms with exercise bikes?",
+            demo_mode=True,
+            output_mode="answer_with_sources",
+            seed=7,
+            include_raw_diagnostics=True,
+        )
+    )
+
+    assert diagnostic_response.raw_diagnostics is not None
+    assert set(diagnostic_response.raw_diagnostics["llm_responses"]) == {"query_rewriting", "answer_synthesis"}
+    assert diagnostic_response.raw_diagnostics["llm_responses"]["query_rewriting"]["json_payload"]["search_groups"]
+    assert diagnostic_response.raw_diagnostics["llm_responses"]["answer_synthesis"]["json_payload"]["answer"]
+
+
+@pytest.mark.asyncio
 async def test_demo_mode_is_deterministic_for_same_seed() -> None:
     request = SearchRequest(
         question="What hotels in Shenzhen have rooms with exercise bikes?",

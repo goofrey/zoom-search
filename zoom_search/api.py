@@ -250,12 +250,15 @@ async def _collect_search_artifacts_from_runtime(runtime: _SearchRuntime) -> _Se
 def _build_response(*, context, answer: str | None, final_results: list, evidence: str) -> SearchResponse:
     metrics = snapshot_metrics(context=context)
     mode = context.request.output_mode
+    raw_diagnostics = dict(context.raw_diagnostics) if context.request.include_raw_diagnostics else None
+    optional_fields = {"raw_diagnostics": raw_diagnostics} if raw_diagnostics is not None else {}
     if mode == "answer":
         return SearchResponse.from_fields(
             request_id=context.request_id,
             answer=answer,
             metrics=metrics,
             warnings=list(context.warnings),
+            **optional_fields,
         )
     if mode == "answer_with_sources":
         return SearchResponse.from_fields(
@@ -265,6 +268,7 @@ def _build_response(*, context, answer: str | None, final_results: list, evidenc
             search_context=evidence,
             metrics=metrics,
             warnings=list(context.warnings),
+            **optional_fields,
         )
     if mode == "results_simple":
         return SearchResponse.from_fields(
@@ -275,12 +279,14 @@ def _build_response(*, context, answer: str | None, final_results: list, evidenc
             ],
             metrics=metrics,
             warnings=list(context.warnings),
+            **optional_fields,
         )
     return SearchResponse.from_fields(
         request_id=context.request_id,
         results=list(final_results),
         metrics=metrics,
         warnings=list(context.warnings),
+        **optional_fields,
     )
 
 

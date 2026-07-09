@@ -225,6 +225,8 @@ async def rewrite_query_groups(*, context: RuntimeContext, llm_client: Any) -> Q
                 context=context,
                 json_strategy=json_strategy,
             )
+            if context.request.include_raw_diagnostics:
+                context.raw_diagnostics.setdefault("llm_responses", {})["query_rewriting"] = _llm_response_diagnostics(response)
             if hasattr(response, "usage"):
                 accumulate_llm_usage(context=context, phase="query_rewriting", usage=getattr(response, "usage", None))
             response_payload = response
@@ -265,6 +267,16 @@ def _select_json_strategy(context: RuntimeContext) -> str:
             return "json_object"
         return provider.capability.recommended_query_rewriting_mode
     return "prompt_only_json"
+
+
+def _llm_response_diagnostics(response: object) -> dict[str, Any]:
+    return {
+        "text": getattr(response, "text", None),
+        "json_payload": getattr(response, "json_payload", None),
+        "usage": getattr(response, "usage", None),
+        "finish_reason": getattr(response, "finish_reason", None),
+        "raw_response": getattr(response, "raw_response", None),
+    }
 
 
 def _parse_llm_response(response: object, *, context: RuntimeContext) -> dict[str, Any]:

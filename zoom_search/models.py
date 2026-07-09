@@ -171,6 +171,7 @@ class SearchRequest:
     demo_mode: bool = False
     proxy: ProxyConfig = field(default_factory=ProxyConfig)
     seed: int | None = None
+    include_raw_diagnostics: bool = False
 
 
 @dataclass(slots=True)
@@ -439,6 +440,7 @@ class RuntimeContext:
     transport_context: dict[str, Any] = field(default_factory=dict)
     semaphore_limits: dict[str, int] = field(default_factory=dict)
     metrics: dict[str, Any] = field(default_factory=dict)
+    raw_diagnostics: dict[str, Any] = field(default_factory=dict)
     terminated: bool = False
 
 
@@ -450,11 +452,12 @@ class SearchResponse:
     answer: str | None = field(default=None, repr=False, compare=False)
     results: list[SimpleSearchResult | FinalSearchResult] | None = field(default=None, repr=False, compare=False)
     search_context: str | None = field(default=None, repr=False, compare=False)
+    raw_diagnostics: dict[str, Any] | None = field(default=None, repr=False, compare=False)
 
     @classmethod
     def from_fields(cls, *, request_id: str, warnings: list[WarningInfo] | None = None, **fields: Any) -> "SearchResponse":
         response = cls(request_id=request_id, warnings=list(warnings or []))
-        for name in ("metrics", "answer", "results", "search_context"):
+        for name in ("metrics", "answer", "results", "search_context", "raw_diagnostics"):
             if name not in fields:
                 delattr(response, name)
         for name, value in fields.items():
@@ -463,7 +466,7 @@ class SearchResponse:
 
     def to_dict(self) -> dict[str, Any]:
         data: dict[str, Any] = {"request_id": self.request_id}
-        for name in ("metrics", "answer", "results", "search_context"):
+        for name in ("metrics", "answer", "results", "search_context", "raw_diagnostics"):
             if hasattr(self, name):
                 data[name] = getattr(self, name)
         data["warnings"] = self.warnings

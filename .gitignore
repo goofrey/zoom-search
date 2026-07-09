@@ -24,3 +24,4 @@ env/
 # Local environment files
 .env
 .env.*
+.zoom-test.env

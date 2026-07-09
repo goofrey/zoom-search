@@ -304,6 +304,8 @@ async def synthesize_answer(*, context: RuntimeContext, llm_provider: LLMProvide
             },
         )
     )
+    if context.request.include_raw_diagnostics:
+        context.raw_diagnostics.setdefault("llm_responses", {})["answer_synthesis"] = _llm_response_diagnostics(response)
     accumulate_llm_usage(context=context, phase="answer_synthesis", usage=response.usage)
     record_phase_elapsed(context=context, phase="answer_synthesis", started_at=started_at)
     payload = _parse_answer_synthesis_payload(response, context=context)
@@ -352,6 +354,8 @@ async def stream_synthesize_answer(*, context: RuntimeContext, llm_provider: LLM
         elif event.get("event") == "done":
             final_response = event.get("response")
     if final_response is not None and hasattr(final_response, "usage"):
+        if context.request.include_raw_diagnostics:
+            context.raw_diagnostics.setdefault("llm_responses", {})["answer_synthesis"] = _llm_response_diagnostics(final_response)
         accumulate_llm_usage(context=context, phase="answer_synthesis", usage=final_response.usage)
     record_phase_elapsed(context=context, phase="answer_synthesis", started_at=started_at)
     response_payload = final_response
@@ -367,3 +371,13 @@ async def stream_synthesize_answer(*, context: RuntimeContext, llm_provider: LLM
             yield suffix
     elif rendered:
         yield rendered
+
+
+def _llm_response_diagnostics(response: object) -> dict[str, Any]:
+    return {
+        "text": getattr(response, "text", None),
+        "json_payload": getattr(response, "json_payload", None),
+        "usage": getattr(response, "usage", None),
+        "finish_reason": getattr(response, "finish_reason", None),
+        "raw_response": getattr(response, "raw_response", None),
+    }

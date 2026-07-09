@@ -40,6 +40,7 @@ def _coerce_request(request: SearchRequest | dict) -> SearchRequest:
             "demo_mode": request.demo_mode,
             "proxy": request.proxy,
             "seed": request.seed,
+            "include_raw_diagnostics": request.include_raw_diagnostics,
         }
     elif isinstance(request, dict):
         data = dict(request)
@@ -112,6 +113,7 @@ def _coerce_request(request: SearchRequest | dict) -> SearchRequest:
         demo_mode=bool(data.get("demo_mode", False)),
         proxy=proxy,
         seed=data.get("seed"),
+        include_raw_diagnostics=bool(data.get("include_raw_diagnostics", False)),
     )
 
 
