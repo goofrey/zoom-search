@@ -104,7 +104,16 @@ Add Zoom Search to your MCP client:
 }
 ```
 
-Your agent can then call the `zoom_search` tool to get sourced answers, source-domain zoom-in, warnings, and runtime metrics.
+Your agent can then call the `zoom_search` tool with a `question` argument:
+
+```json
+{
+  "question": "Which vector databases support hybrid search and metadata filtering for Python apps?",
+  "output_mode": "answer_with_sources"
+}
+```
+
+The tool returns sourced answers, source-domain zoom-in, warnings, and runtime metrics.
 
 Or wrap it as a LangGraph/LangChain tool:
 
