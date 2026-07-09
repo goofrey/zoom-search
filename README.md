@@ -28,7 +28,7 @@
 
 <p align="center">
   <a href="#quickstart">Quickstart</a> ·
-  <a href="#real-provider-example">Providers</a> ·
+  <a href="#python-sdk-example">Python SDK</a> ·
   <a href="./docs/agent-integration.md">Agents</a> ·
   <a href="./docs/benchmarks.md">Benchmarks</a> ·
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a>
@@ -79,12 +79,32 @@ asyncio.run(main())
 
 ## Agent Tool Example
 
-Use Zoom Search through MCP:
+Install the MCP extra:
 
 ```bash
 pip install "zoom-search[mcp]"
-zoom-search-mcp
 ```
+
+Add Zoom Search to your MCP client:
+
+```json
+{
+  "mcpServers": {
+    "zoom-search": {
+      "command": "zoom-search-mcp",
+      "env": {
+        "ZOOM_SEARCH_LLM_ENGINE": "gemini",
+        "ZOOM_SEARCH_LLM_MODEL": "gemini-2.5-flash",
+        "ZOOM_SEARCH_LLM_API_KEY": "YOUR_GEMINI_API_KEY",
+        "ZOOM_SEARCH_SEARCH_ENGINE": "tavily",
+        "ZOOM_SEARCH_SEARCH_API_KEY": "YOUR_TAVILY_API_KEY"
+      }
+    }
+  }
+}
+```
+
+Your agent can then call the `zoom_search` tool to get sourced answers, source-domain zoom-in, warnings, and runtime metrics.
 
 Or wrap it as a LangGraph/LangChain tool:
 
@@ -105,7 +125,7 @@ async def zoom_search_evidence(query: str) -> dict:
 
 See [`docs/agent-integration.md`](./docs/agent-integration.md) for MCP client configuration and provider environment variables.
 
-## Real Provider Example
+## Python SDK Example
 
 ```python
 import asyncio
