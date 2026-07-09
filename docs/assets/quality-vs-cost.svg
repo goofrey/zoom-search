@@ -31,9 +31,10 @@
       <text x="165" y="194" text-anchor="middle" fill="#64748B" font-size="19" font-weight="700">+2.3k to +5.1k tokens</text>
     </g>
 
-    <g transform="translate(116 442)">
-      <rect width="888" height="48" rx="24" fill="#0F172A"/>
-      <text x="444" y="32" text-anchor="middle" fill="#F8FAFC" font-size="22" font-weight="900">Trade a small extra budget for better source coverage and grounded answers.</text>
+    <g transform="translate(196 428)">
+      <rect width="728" height="72" rx="24" fill="#0F172A"/>
+      <text x="364" y="31" text-anchor="middle" dominant-baseline="middle" fill="#F8FAFC" font-size="22" font-weight="900">Small extra budget.</text>
+      <text x="364" y="55" text-anchor="middle" dominant-baseline="middle" fill="#CBD5E1" font-size="19" font-weight="800">Better source coverage and grounded answers.</text>
     </g>
   </g>
 </svg>
