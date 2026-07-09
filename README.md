@@ -1,8 +1,23 @@
 # Zoom Search
 
-<p align="center">
-  <img src="./docs/assets/quality-vs-cost.png" alt="Zoom Search quality versus cost benchmark summary" />
-</p>
+<table>
+  <tr>
+    <td align="center" colspan="3">
+      <strong>Better Answers, Bounded Extra Cost</strong><br />
+      Direct search baseline vs Zoom Search workflow
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Useful results</strong></td>
+    <td align="center"><strong>Answer quality</strong></td>
+    <td align="center"><strong>Extra budget</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>1-5 -&gt; 4-12</strong><br />more good sources</td>
+    <td align="center"><strong>2.0-7.2 -&gt; 7.8-8.7</strong><br />stronger final answers</td>
+    <td align="center"><strong>+5.9s to +12.2s</strong><br />+2.3k to +5.1k tokens</td>
+  </tr>
+</table>
 
 <p align="center">
   <img src="https://img.shields.io/badge/python-%3E%3D3.10-3776AB" alt="Python >=3.10" />
@@ -20,16 +35,17 @@
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a>
 </p>
 
-Zoom Search is a precise AI web search library for Python. It rewrites questions, searches broadly, zooms into high-value source domains, deduplicates results, formats evidence, and can synthesize sourced answers through an async API.
+Zoom Search is a search and evidence tool for AI agents. It helps agents rewrite search questions, gather broader web evidence, zoom into high-value source domains, and return sourced answers with metrics.
 
-It is built for applications that need stronger source discovery, traceability, and answer grounding than a single search call.
+It is built for agentic applications that need stronger source discovery, traceability, and answer grounding than a single search call.
 
 ## Why Zoom Search
 
-- **Better source discovery**: rewrite the original question into stronger search variants.
+- **Agent search tool**: expose structured answers, sources, warnings, and metrics for tool-calling agents.
+- **Better evidence gathering**: rewrite agent questions into stronger search variants.
 - **Source-domain zoom-in**: search broadly first, then focus on high-value domains.
-- **Traceable evidence**: preserve source domains, duplicate provenance, warnings, and metrics.
-- **Agent-ready output**: expose answer, sources, warnings, and metrics for tool-calling agents.
+- **Traceable outputs**: preserve source domains, duplicate provenance, warnings, and runtime metrics.
+- **MCP/LangGraph ready**: use Zoom Search through MCP or LangGraph integrations.
 - **Provider-flexible**: use built-in engines or custom OpenAI-compatible and native HTTP providers.
 
 ## Install
@@ -139,7 +155,7 @@ asyncio.run(main())
 
 ## Benchmarks
 
-Historical evaluations show better useful result coverage and stronger final answers with bounded extra time and token cost.
+Historical evaluations compare direct search against the Zoom Search agent workflow, showing better useful result coverage and stronger final answers with bounded extra time and token cost.
 
 | Case | Good results | Answer quality | Extra time | Extra tokens |
 |---|---:|---:|---:|---:|
@@ -159,7 +175,7 @@ python examples/streaming.py
 python examples/conversation_history.py
 ```
 
-Use Zoom Search as an agent search tool through MCP or LangGraph. See [`docs/agent-integration.md`](./docs/agent-integration.md).
+For MCP and LangGraph tool usage, see [`docs/agent-integration.md`](./docs/agent-integration.md).
 
 ## Documentation
 
