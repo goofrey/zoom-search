@@ -28,7 +28,7 @@
 
 <p align="center">
   <a href="#quickstart">Quickstart</a> ·
-  <a href="#python-sdk-example">Python SDK</a> ·
+  <a href="#agent-tool-example">Agent Tool</a> ·
   <a href="./docs/agent-integration.md">Agents</a> ·
   <a href="./docs/benchmarks.md">Benchmarks</a> ·
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a>
@@ -124,31 +124,6 @@ async def zoom_search_evidence(query: str) -> dict:
 ```
 
 See [`docs/agent-integration.md`](./docs/agent-integration.md) for MCP client configuration and provider environment variables.
-
-## Python SDK Example
-
-```python
-import asyncio
-
-from zoom_search import search
-
-
-async def main() -> None:
-    response = await search(
-        question="Which vector databases support hybrid search and metadata filtering for Python apps?",
-        llm_engine="gemini",
-        llm_model="gemini-2.5-flash",
-        llm_api_key="YOUR_GEMINI_API_KEY",
-        search_engine="tavily",
-        search_api_key="YOUR_TAVILY_API_KEY",
-        output_mode="answer_with_sources",
-    )
-    print(response.answer)
-    print(response.search_context)
-
-
-asyncio.run(main())
-```
 
 ## Benchmarks
 
