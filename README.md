@@ -1,7 +1,7 @@
 # Zoom Search
 
 <p align="center">
-  <img src="./docs/assets/quality-vs-cost.svg" alt="Zoom Search quality versus cost benchmark summary" />
+  <img src="./docs/assets/quality-vs-cost.png" alt="Zoom Search quality versus cost benchmark summary" />
 </p>
 
 <p align="center">
@@ -15,6 +15,7 @@
   <a href="#quickstart">Quickstart</a> ·
   <a href="#real-provider-example">Providers</a> ·
   <a href="#streaming">Streaming</a> ·
+  <a href="./docs/agent-integration.md">Agents</a> ·
   <a href="./docs/benchmarks.md">Benchmarks</a> ·
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a>
 </p>
@@ -28,6 +29,7 @@ It is built for applications that need stronger source discovery, traceability, 
 - **Better source discovery**: rewrite the original question into stronger search variants.
 - **Source-domain zoom-in**: search broadly first, then focus on high-value domains.
 - **Traceable evidence**: preserve source domains, duplicate provenance, warnings, and metrics.
+- **Agent-ready output**: expose answer, sources, warnings, and metrics for tool-calling agents.
 - **Provider-flexible**: use built-in engines or custom OpenAI-compatible and native HTTP providers.
 
 ## Install
@@ -157,9 +159,12 @@ python examples/streaming.py
 python examples/conversation_history.py
 ```
 
+Use Zoom Search as an agent search tool through MCP or LangGraph. See [`docs/agent-integration.md`](./docs/agent-integration.md).
+
 ## Documentation
 
 - Advanced configuration: https://github.com/goofrey/zoom-search/blob/main/docs/advanced-configuration.md
+- Agent integration: https://github.com/goofrey/zoom-search/blob/main/docs/agent-integration.md
 - Development checks: https://github.com/goofrey/zoom-search/blob/main/docs/development.md
 - Benchmarks: https://github.com/goofrey/zoom-search/blob/main/docs/benchmarks.md
 
