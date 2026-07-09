@@ -3,19 +3,19 @@
 <table>
   <tr>
     <td align="center" colspan="3">
-      <strong>Better Answers, Bounded Extra Cost</strong><br />
-      Direct search baseline vs Zoom Search workflow
+      <h2>Better Answers, Bounded Extra Cost</h2>
+      <strong>Direct search baseline vs Zoom Search workflow</strong>
     </td>
   </tr>
   <tr>
-    <td align="center"><strong>Useful results</strong></td>
-    <td align="center"><strong>Answer quality</strong></td>
-    <td align="center"><strong>Extra budget</strong></td>
+    <td align="center"><h3>Useful results</h3></td>
+    <td align="center"><h3>Answer quality</h3></td>
+    <td align="center"><h3>Extra budget</h3></td>
   </tr>
   <tr>
-    <td align="center"><strong>1-5 -&gt; 4-12</strong><br />more good sources</td>
-    <td align="center"><strong>2.0-7.2 -&gt; 7.8-8.7</strong><br />stronger final answers</td>
-    <td align="center"><strong>+5.9s to +12.2s</strong><br />+2.3k to +5.1k tokens</td>
+    <td align="center"><h2>1-5 -&gt; 4-12</h2>more good sources</td>
+    <td align="center"><h2>2.0-7.2 -&gt; 7.8-8.7</h2>stronger final answers</td>
+    <td align="center"><h2>+5.9s to +12.2s</h2>+2.3k to +5.1k tokens</td>
   </tr>
 </table>
 
