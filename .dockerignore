@@ -1,0 +1,16 @@
+.git
+.github
+.pytest_cache
+.ruff_cache
+.zoom-test.env
+__pycache__
+*.egg-info
+*.pyc
+dist
+build
+htmlcov
+.monkeycode
+*.docx
+resume-*.md
+cover-letter-*.md
+create_*_resume_docx.py
