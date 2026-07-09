@@ -29,7 +29,6 @@
 <p align="center">
   <a href="#quickstart">Quickstart</a> ·
   <a href="#real-provider-example">Providers</a> ·
-  <a href="#streaming">Streaming</a> ·
   <a href="./docs/agent-integration.md">Agents</a> ·
   <a href="./docs/benchmarks.md">Benchmarks</a> ·
   <a href="./docs/advanced-configuration.md">Advanced Configuration</a>
@@ -131,56 +130,6 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
-## Common Usage
-
-Return only normalized search results:
-
-```python
-response = await search(
-    question="Latest SQLite performance improvements",
-    demo_mode=True,
-    output_mode="results_simple",
-)
-```
-
-Use recent conversation context:
-
-```python
-response = await search(
-    question="What about hotels with in-room fitness equipment?",
-    previous_conversation=[
-        "I am planning a business trip to Shenzhen.",
-        "I prefer hotels with wellness facilities.",
-    ],
-    demo_mode=True,
-    output_mode="answer_with_sources",
-)
-```
-
-## Streaming
-
-```python
-import asyncio
-
-from zoom_search import astream_search
-
-
-async def main() -> None:
-    async for event in astream_search(
-        question="What hotels in Shenzhen have rooms with exercise bikes?",
-        demo_mode=True,
-        output_mode="answer_with_sources",
-        seed=7,
-    ):
-        if event.type == "answer_delta":
-            print(event.text, end="")
-        if event.type == "completed":
-            print(event.response.request_id)
-
-
-asyncio.run(main())
-```
-
 ## Benchmarks
 
 Historical evaluations compare direct search against the Zoom Search agent workflow, showing better useful result coverage and stronger final answers with bounded extra time and token cost.
@@ -193,17 +142,7 @@ Historical evaluations compare direct search against the Zoom Search agent workf
 
 See the full benchmark notes in [`docs/benchmarks.md`](./docs/benchmarks.md).
 
-## Examples
-
-Runnable examples are available in the `examples/` directory:
-
-```bash
-python examples/demo_mode.py
-python examples/streaming.py
-python examples/conversation_history.py
-```
-
-For MCP and LangGraph tool usage, see [`docs/agent-integration.md`](./docs/agent-integration.md).
+Runnable examples for demo mode, streaming, conversation history, and LangGraph are available in the `examples/` directory.
 
 ## Documentation
 
