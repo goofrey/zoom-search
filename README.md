@@ -109,6 +109,8 @@ Your agent can then call the `zoom_search` tool to get sourced answers, source-d
 Or wrap it as a LangGraph/LangChain tool:
 
 ```python
+import os
+
 from langchain.tools import tool
 
 from zoom_search import search
@@ -118,6 +120,11 @@ from zoom_search import search
 async def zoom_search_evidence(query: str) -> dict:
     response = await search(
         question=query,
+        llm_engine=os.environ["ZOOM_SEARCH_LLM_ENGINE"],
+        llm_model=os.environ["ZOOM_SEARCH_LLM_MODEL"],
+        llm_api_key=os.environ["ZOOM_SEARCH_LLM_API_KEY"],
+        search_engine=os.environ["ZOOM_SEARCH_SEARCH_ENGINE"],
+        search_api_key=os.environ["ZOOM_SEARCH_SEARCH_API_KEY"],
         output_mode="answer_with_sources",
     )
     return response.to_dict()
