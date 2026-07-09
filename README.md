@@ -78,6 +78,34 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
+## Agent Tool Example
+
+Use Zoom Search through MCP:
+
+```bash
+pip install "zoom-search[mcp]"
+zoom-search-mcp
+```
+
+Or wrap it as a LangGraph/LangChain tool:
+
+```python
+from langchain.tools import tool
+
+from zoom_search import search
+
+
+@tool
+async def zoom_search_evidence(query: str) -> dict:
+    response = await search(
+        question=query,
+        output_mode="answer_with_sources",
+    )
+    return response.to_dict()
+```
+
+See [`docs/agent-integration.md`](./docs/agent-integration.md) for MCP client configuration and provider environment variables.
+
 ## Real Provider Example
 
 ```python
