@@ -24,6 +24,7 @@
   <img src="https://img.shields.io/badge/license-MIT-0F766E" alt="License: MIT" />
   <img src="https://img.shields.io/badge/package-zoom--search-2563EB" alt="Package: zoom-search" />
   <img src="https://img.shields.io/badge/tests-pytest-0F172A" alt="Tests: pytest" />
+  <a href="https://glama.ai/mcp/servers/goofrey/zoom-search"><img src="https://glama.ai/mcp/servers/goofrey/zoom-search/badges/score.svg" alt="goofrey/zoom-search MCP server" /></a>
 </p>
 
 <p align="center">
