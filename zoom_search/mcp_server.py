@@ -5,8 +5,11 @@ from __future__ import annotations
 from dataclasses import asdict
 from dataclasses import is_dataclass
 import os
+from typing import Annotated
 from typing import Any
 from typing import Literal
+
+from pydantic import Field
 
 from zoom_search import search
 
@@ -39,23 +42,99 @@ def create_server():
         "Zoom Search",
         instructions=(
             "Use the zoom_search tool when an agent needs grounded web evidence, "
-            "source URLs, warnings, and runtime metrics."
+            "source URLs, warnings, and runtime metrics for a research question. "
+            "The tool is read-only but may call configured LLM and search providers."
         ),
     )
 
     @mcp.tool()
     async def zoom_search(
-        question: str,
-        previous_conversation: list[str] | None = None,
-        output_mode: OutputModeName = "answer_with_sources",
-        demo_mode: bool | None = None,
-        seed: int | None = None,
-        zoomout_num_results: int = 5,
-        zoomin_num_results: int = 5,
-        top_k_domains_per_query: int = 1,
-        include_raw_diagnostics: bool = False,
+        question: Annotated[
+            str,
+            Field(
+                description=(
+                    "Natural-language research question to answer using Zoom Search. "
+                    "Ask one concrete question; include key entities, constraints, or comparison targets."
+                )
+            ),
+        ],
+        previous_conversation: Annotated[
+            list[str] | None,
+            Field(
+                description=(
+                    "Optional earlier user/assistant context as plain text messages. "
+                    "Use only when prior conversation changes how the question should be interpreted."
+                )
+            ),
+        ] = None,
+        output_mode: Annotated[
+            OutputModeName,
+            Field(
+                description=(
+                    "Response shape. Use 'answer_with_sources' for grounded answers with evidence, "
+                    "'answer' for only the synthesized answer, 'results_simple' for compact search results, "
+                    "or 'results_detailed' for full traceable result objects."
+                )
+            ),
+        ] = "answer_with_sources",
+        demo_mode: Annotated[
+            bool | None,
+            Field(
+                description=(
+                    "Optional override for deterministic demo data. Set true for tests or demos without provider keys; "
+                    "leave null to use ZOOM_SEARCH_DEMO_MODE or configured live providers."
+                )
+            ),
+        ] = None,
+        seed: Annotated[
+            int | None,
+            Field(
+                description=(
+                    "Optional deterministic seed, mainly useful with demo_mode for repeatable examples and tests."
+                )
+            ),
+        ] = None,
+        zoomout_num_results: Annotated[
+            int,
+            Field(
+                ge=1,
+                le=20,
+                description=(
+                    "Number of broad web results to request for each rewritten query during the zoom-out phase."
+                ),
+            ),
+        ] = 5,
+        zoomin_num_results: Annotated[
+            int,
+            Field(
+                ge=1,
+                le=20,
+                description=(
+                    "Number of focused results to request from each selected source domain during the zoom-in phase."
+                ),
+            ),
+        ] = 5,
+        top_k_domains_per_query: Annotated[
+            int,
+            Field(
+                ge=1,
+                le=5,
+                description=(
+                    "Maximum number of high-value source domains selected per rewritten query for zoom-in searches."
+                ),
+            ),
+        ] = 1,
+        include_raw_diagnostics: Annotated[
+            bool,
+            Field(
+                description=(
+                    "Include raw LLM diagnostics for debugging query rewriting and answer synthesis. "
+                    "Keep false for normal agent use because diagnostics may contain provider payload details."
+                )
+            ),
+        ] = False,
     ) -> dict[str, Any]:
-        """Run Zoom Search and return answer, sources, warnings, metrics, and evidence."""
+        """Run read-only agent search with query rewriting, source zoom-in, and sourced answer synthesis."""
 
         params = _build_search_params(
             question=question,
