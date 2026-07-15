@@ -96,6 +96,27 @@ class LLMCapabilityRegistry:
 
 BUILTIN_LLM_REGISTRY = LLMCapabilityRegistry(BUILTIN_LLM_CAPABILITIES)
 _CUSTOM_NATIVE_CONTROL_FIELDS = {"endpoint_path", "path", "request_mapping", "response_mapping"}
+_OPENAI_COMPATIBLE_PATCH_INPUT_FIELDS = {
+    "endpoint_id",
+    "logprobs",
+    "max_completion_tokens",
+    "model_id",
+    "prefer_schema_native",
+    "structured_output_model",
+    "structured_output_route",
+    "top_k",
+    "top_logprobs",
+    "with_search_enhance",
+}
+_OPENAI_COMPATIBLE_CONTROL_FIELDS = _CUSTOM_NATIVE_CONTROL_FIELDS | {
+    "api_route",
+    "endpoint_id",
+    "model_id",
+    "prefer_schema_native",
+    "structured_output_model",
+    "structured_output_route",
+    "supports_streaming",
+}
 
 
 def _read_response_payload(response: Any) -> Any:
@@ -246,6 +267,17 @@ class OpenAICompatibleAdapter(BaseLLMAdapter):
         )
         self._context = context
         self._transport_context = transport_context
+
+    def normalize_request(self, request: UnifiedLLMRequest) -> NormalizedLLMRequest:
+        patch_extra = {
+            key: _copy_jsonable(value)
+            for key, value in self._context.llm_provider.extra.items()
+            if key in _OPENAI_COMPATIBLE_PATCH_INPUT_FIELDS
+        }
+        if patch_extra:
+            patch_extra.update(request.extra_params)
+            request = request.copy_with(extra_params=patch_extra)
+        return super().normalize_request(request)
 
     async def generate(self, request: UnifiedLLMRequest) -> UnifiedLLMResponse:
         normalized = self.normalize_request(request)
@@ -414,12 +446,19 @@ class OpenAICompatibleAdapter(BaseLLMAdapter):
             payload["response_format"] = response_format
         if self._context.llm_provider.extra:
             for key, value in self._context.llm_provider.extra.items():
+                if key in _OPENAI_COMPATIBLE_CONTROL_FIELDS:
+                    continue
                 payload.setdefault(key, _copy_jsonable(value))
         if request.extra_params:
             for key, value in request.extra_params.items():
+                if key in _OPENAI_COMPATIBLE_CONTROL_FIELDS:
+                    continue
                 payload[key] = _copy_jsonable(value)
         if self.provider_engine in {"kimi-global", "kimi-china"}:
             payload.pop("temperature", None)
+        if self.provider_engine == "gemini":
+            payload.pop("logprobs", None)
+            payload.pop("top_logprobs", None)
         return payload
 
     def normalize_error(self, *, error: Exception, http_status: int | None = None, payload: Any = None) -> ZoomSearchError:

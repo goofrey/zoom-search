@@ -441,7 +441,12 @@ async def test_openai_compatible_adapter_passes_llm_extra_to_body_and_headers_to
             "gemini",
             "gemini-2.5-flash",
             llm_headers={"X-Tenant-ID": "tenant-a"},
-            llm_extra={"reasoning_effort": "low", "temperature": 0.9},
+            llm_extra={
+                "logprobs": True,
+                "reasoning_effort": "low",
+                "temperature": 0.9,
+                "top_logprobs": 2,
+            },
         ),
         transport_context=MockTransportContext(client),
     )
@@ -459,6 +464,81 @@ async def test_openai_compatible_adapter_passes_llm_extra_to_body_and_headers_to
     assert client.posts[0]["headers"]["Authorization"] == "Bearer secret"
     assert client.posts[0]["json"]["reasoning_effort"] == "low"
     assert client.posts[0]["json"]["temperature"] == 0.2
+    assert "logprobs" not in client.posts[0]["json"]
+    assert "top_logprobs" not in client.posts[0]["json"]
+
+
+@pytest.mark.asyncio
+async def test_openai_compatible_adapter_applies_provider_patch_fields_from_llm_extra() -> None:
+    cases = [
+        (
+            "doubao-global",
+            "doubao-seed-1-6",
+            {"endpoint_id": "ep-123", "supports_streaming": True},
+            {"model": "ep-123"},
+        ),
+        (
+            "baichuan",
+            "Baichuan4-Turbo",
+            {"top_k": 9, "with_search_enhance": True},
+            {"top_k": 9, "with_search_enhance": True},
+        ),
+    ]
+
+    for engine, model, llm_extra, expected_body in cases:
+        client = MockLLMClient(
+            post_responses=[MockResponse({"choices": [{"message": {"content": "ok"}, "finish_reason": "stop"}]})]
+        )
+        adapter = OpenAICompatibleAdapter(
+            context=_build_context(engine, model, llm_extra=llm_extra),
+            transport_context=MockTransportContext(client),
+        )
+
+        await adapter.generate(
+            UnifiedLLMRequest(
+                task="answer_synthesis",
+                provider=engine,
+                model=model,
+                messages=[UnifiedMessage(role="user", content="Answer")],
+            )
+        )
+
+        for key, value in expected_body.items():
+            assert client.posts[0]["json"][key] == value
+        assert "endpoint_id" not in client.posts[0]["json"]
+        assert "supports_streaming" not in client.posts[0]["json"]
+
+
+@pytest.mark.asyncio
+async def test_openai_compatible_adapter_uses_minimax_control_fields_without_sending_them() -> None:
+    client = MockLLMClient(
+        post_responses=[MockResponse({"choices": [{"message": {"content": "ok"}, "finish_reason": "stop"}]})]
+    )
+    adapter = OpenAICompatibleAdapter(
+        context=_build_context(
+            "minimax-china",
+            "MiniMax-M2.1",
+            llm_extra={
+                "structured_output_route": "native_chatcompletion_v2",
+                "structured_output_model": "MiniMax-Text-01",
+            },
+        ),
+        transport_context=MockTransportContext(client),
+    )
+
+    await adapter.generate(
+        UnifiedLLMRequest(
+            task="answer_synthesis",
+            provider="minimax-china",
+            model="MiniMax-M2.1",
+            messages=[UnifiedMessage(role="user", content="Answer")],
+        )
+    )
+
+    assert client.posts[0]["path"] == "/v1/text/chatcompletion_v2"
+    assert client.posts[0]["json"]["model"] == "MiniMax-Text-01"
+    for control_field in ("api_route", "structured_output_model", "structured_output_route"):
+        assert control_field not in client.posts[0]["json"]
 
 
 @pytest.mark.asyncio

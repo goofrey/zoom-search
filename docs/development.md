@@ -1,12 +1,8 @@
 # Development
 
-## Evaluation Assets
+## Benchmarks
 
-- Historical showcase cases: `specs/zoom-search/evaluation/golden-tests.md`
-- Regression benchmarks: `specs/zoom-search/evaluation/regression-benchmarks.md`
-- Failure tests: `specs/zoom-search/evaluation/failure-tests.md`
-- Report library: `specs/zoom-search/evaluation/reports/`
-- Regression checker: `python3 tools/check_regression_benchmarks.py`
+See [Benchmarks](benchmarks.md) for the public methodology, scenarios, and results.
 
 ## Test Checks
 
