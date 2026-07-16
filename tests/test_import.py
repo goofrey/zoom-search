@@ -2,5 +2,5 @@ import zoom_search
 
 
 def test_import_zoom_search() -> None:
-    assert zoom_search.__version__ == "0.1.5"
+    assert zoom_search.__version__ == "0.1.6"
     assert hasattr(zoom_search, "SearchRequest")
