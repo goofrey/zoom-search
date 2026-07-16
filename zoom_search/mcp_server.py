@@ -35,6 +35,7 @@ def create_server():
 
     try:
         from mcp.server.fastmcp import FastMCP
+        from mcp.types import ToolAnnotations
     except ImportError as exc:  # pragma: no cover - exercised when optional dependency is absent
         raise RuntimeError("Install MCP support with `pip install zoom-search[mcp]`.") from exc
 
@@ -47,7 +48,14 @@ def create_server():
         ),
     )
 
-    @mcp.tool()
+    @mcp.tool(
+        annotations=ToolAnnotations(
+            readOnlyHint=True,
+            destructiveHint=False,
+            idempotentHint=True,
+            openWorldHint=True,
+        )
+    )
     async def zoom_search(
         question: Annotated[
             str,
@@ -134,7 +142,33 @@ def create_server():
             ),
         ] = False,
     ) -> dict[str, Any]:
-        """Run read-only agent search with query rewriting, source zoom-in, and sourced answer synthesis."""
+        """Research current or evidence-sensitive questions and synthesize a traceable answer.
+
+        Rewrites the question, searches broadly, and zooms into selected source domains.
+
+        USE WHEN:
+        - The answer requires current web information, multiple independent sources, comparisons, or citations.
+        - The agent needs evidence URLs, warnings, and runtime metrics.
+
+        OUTPUT MODES:
+        - answer_with_sources: Recommended for final grounded answers.
+        - answer: Synthesized answer without source details.
+        - results_simple: Compact search results for another processing step.
+        - results_detailed: Full traceable result objects and evidence.
+
+        PARAMETER GUIDANCE:
+        - question should contain one concrete research task with key entities and constraints.
+        - previous_conversation resolves references or ambiguity from earlier messages.
+        - demo_mode produces deterministic sample data; seed controls repeatability.
+        - Result-count and domain parameters trade broader coverage for latency, provider requests, and cost.
+        - include_raw_diagnostics is intended for debugging and may include provider details.
+
+        BEHAVIOR:
+        Calls configured search and LLM providers. Provider credentials, network availability,
+        rate limits, and usage charges apply. The operation is read-only and does not modify
+        local or remote data. Returns the response selected by output_mode, including available
+        answers, sources, evidence, warnings, and metrics.
+        """
 
         params = _build_search_params(
             question=question,
