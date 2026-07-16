@@ -96,26 +96,30 @@ class LLMCapabilityRegistry:
 
 BUILTIN_LLM_REGISTRY = LLMCapabilityRegistry(BUILTIN_LLM_CAPABILITIES)
 _CUSTOM_NATIVE_CONTROL_FIELDS = {"endpoint_path", "path", "request_mapping", "response_mapping"}
+_OPENAI_COMPATIBLE_COMMON_CONTROL_FIELDS = {"supports_streaming"}
 _OPENAI_COMPATIBLE_PATCH_INPUT_FIELDS = {
-    "endpoint_id",
-    "logprobs",
-    "max_completion_tokens",
-    "model_id",
-    "prefer_schema_native",
-    "structured_output_model",
-    "structured_output_route",
-    "top_k",
-    "top_logprobs",
-    "with_search_enhance",
+    "gemini": {"logprobs", "top_logprobs"},
+    "doubao-global": {"endpoint_id", "model_id"},
+    "doubao-china": {"endpoint_id", "model_id"},
+    "baichuan": {"top_k", "with_search_enhance"},
+    "minimax-global": {"max_completion_tokens"},
+    "minimax-china": {
+        "max_completion_tokens",
+        "prefer_schema_native",
+        "structured_output_model",
+        "structured_output_route",
+    },
 }
-_OPENAI_COMPATIBLE_CONTROL_FIELDS = _CUSTOM_NATIVE_CONTROL_FIELDS | {
-    "api_route",
-    "endpoint_id",
-    "model_id",
-    "prefer_schema_native",
-    "structured_output_model",
-    "structured_output_route",
-    "supports_streaming",
+_OPENAI_COMPATIBLE_CONTROL_FIELDS = {
+    "gemini": {"logprobs", "top_logprobs"},
+    "doubao-global": {"endpoint_id", "model_id"},
+    "doubao-china": {"endpoint_id", "model_id"},
+    "minimax-china": {
+        "api_route",
+        "prefer_schema_native",
+        "structured_output_model",
+        "structured_output_route",
+    },
 }
 
 
@@ -269,10 +273,11 @@ class OpenAICompatibleAdapter(BaseLLMAdapter):
         self._transport_context = transport_context
 
     def normalize_request(self, request: UnifiedLLMRequest) -> NormalizedLLMRequest:
+        patch_input_fields = _OPENAI_COMPATIBLE_PATCH_INPUT_FIELDS.get(self.provider_engine, ())
         patch_extra = {
             key: _copy_jsonable(value)
             for key, value in self._context.llm_provider.extra.items()
-            if key in _OPENAI_COMPATIBLE_PATCH_INPUT_FIELDS
+            if key in patch_input_fields
         }
         if patch_extra:
             patch_extra.update(request.extra_params)
@@ -421,6 +426,7 @@ class OpenAICompatibleAdapter(BaseLLMAdapter):
         request: UnifiedLLMRequest,
         response_format: dict[str, Any] | None,
     ) -> dict[str, Any]:
+        control_fields = _OPENAI_COMPATIBLE_COMMON_CONTROL_FIELDS | _OPENAI_COMPATIBLE_CONTROL_FIELDS.get(self.provider_engine, set())
         payload: dict[str, Any] = {
             "model": request.model,
             "messages": [self._serialize_message(message) for message in request.messages],
@@ -446,12 +452,12 @@ class OpenAICompatibleAdapter(BaseLLMAdapter):
             payload["response_format"] = response_format
         if self._context.llm_provider.extra:
             for key, value in self._context.llm_provider.extra.items():
-                if key in _OPENAI_COMPATIBLE_CONTROL_FIELDS:
+                if key in control_fields:
                     continue
                 payload.setdefault(key, _copy_jsonable(value))
         if request.extra_params:
             for key, value in request.extra_params.items():
-                if key in _OPENAI_COMPATIBLE_CONTROL_FIELDS:
+                if key in control_fields:
                     continue
                 payload[key] = _copy_jsonable(value)
         if self.provider_engine in {"kimi-global", "kimi-china"}:

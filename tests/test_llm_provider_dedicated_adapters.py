@@ -542,6 +542,42 @@ async def test_openai_compatible_adapter_uses_minimax_control_fields_without_sen
 
 
 @pytest.mark.asyncio
+async def test_custom_openai_compatible_adapter_preserves_provider_body_fields() -> None:
+    client = MockLLMClient(
+        post_responses=[MockResponse({"choices": [{"message": {"content": "ok"}, "finish_reason": "stop"}]})]
+    )
+    adapter = OpenAICompatibleAdapter(
+        context=_build_context(
+            "openai-compatible",
+            "custom-model",
+            llm_extra={
+                "model_id": "provider-model-id",
+                "structured_output_model": "provider-structured-model",
+                "structured_output_route": "provider-route",
+                "supports_streaming": True,
+            },
+        ),
+        transport_context=MockTransportContext(client),
+    )
+
+    await adapter.generate(
+        UnifiedLLMRequest(
+            task="answer_synthesis",
+            provider="openai-compatible",
+            model="custom-model",
+            messages=[UnifiedMessage(role="user", content="Answer")],
+        )
+    )
+
+    body = client.posts[0]["json"]
+    assert body["model"] == "custom-model"
+    assert body["model_id"] == "provider-model-id"
+    assert body["structured_output_model"] == "provider-structured-model"
+    assert body["structured_output_route"] == "provider-route"
+    assert "supports_streaming" not in body
+
+
+@pytest.mark.asyncio
 async def test_openai_compatible_adapter_omits_temperature_for_kimi_providers() -> None:
     for engine, model in (("kimi-global", "kimi-k2.6"), ("kimi-china", "moonshot-v1-8k")):
         client = MockLLMClient(
